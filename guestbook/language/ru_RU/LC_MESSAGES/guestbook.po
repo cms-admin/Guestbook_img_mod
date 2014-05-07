@@ -1,0 +1,238 @@
+﻿msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-07 05:10+0300\n"
+"PO-Revision-Date: 2014-05-07 05:10+0300\n"
+"Last-Translator:  \n"
+"Language-Team:  \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;lang\n"
+"X-Poedit-Basepath: ../../../\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:9
+msgid "All entries"
+msgstr "Все отзывы"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:10
+msgid "Positive entries"
+msgstr "Положительные отзывы"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:11
+msgid "Negative entries"
+msgstr "Отрицательные отзывы"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:12
+msgid "Write entry"
+msgstr "Написать отзыв"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:33
+msgid "No entries"
+msgstr "Нет отзывов"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:122
+msgid "To leave a message, you must log in or register."
+msgstr "Чтобы оставить сообщение, вам необходимо авторизоваться или зарегистрироваться"
+
+#: ./application/modules/guestbook//admin.php:68
+msgid "Changes have been saved"
+msgstr "Изменения сохранены"
+
+#: ./application/modules/guestbook//assets/admin/settings.tpl:12
+msgid "Back"
+msgstr "Назад"
+
+#: ./application/modules/guestbook//assets/admin/settings.tpl:14
+msgid "Save"
+msgstr "Сохранить"
+
+#: ./application/modules/guestbook//assets/admin/settings.tpl:21
+msgid "Email for notices"
+msgstr "E-mail для уведомлений"
+
+#: ./application/modules/guestbook//assets/admin/settings.tpl:27
+msgid "Allow guests to write"
+msgstr "Разрешить гостям оставлять записи"
+
+#: ./application/modules/guestbook//assets/admin/settings.tpl:30
+#: ./application/modules/guestbook//assets/admin/settings.tpl:39
+msgid "No"
+msgstr "Нет"
+
+#: ./application/modules/guestbook//assets/admin/settings.tpl:31
+#: ./application/modules/guestbook//assets/admin/settings.tpl:40
+msgid "Yes"
+msgstr "Да"
+
+#: ./application/modules/guestbook//assets/admin/settings.tpl:36
+msgid "To publish immediately"
+msgstr "Публиковать сразу"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:50
+msgid "Your message has been sent."
+msgstr "Ваше сообщение было отправлено"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:56
+#: ./application/modules/guestbook//assets/guestbook.tpl:60
+#: ./application/modules/guestbook//guestbook.php:64
+msgid "Your name"
+msgstr "Ваше имя"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:66
+#: ./application/modules/guestbook//assets/guestbook.tpl:70
+#: ./application/modules/guestbook//guestbook.php:65
+msgid "Email"
+msgstr "E-mail"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:81
+msgid "Message text"
+msgstr "Текст сообщения"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:87
+msgid "Your feedback"
+msgstr "Ваш отзыв"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:99
+#: ./application/modules/guestbook//guestbook.php:69
+#: ./application/modules/guestbook//guestbook.php:71
+msgid "Protection code"
+msgstr "Проверочный код"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:106
+msgid "Enter protection code"
+msgstr "Введите проверочный код"
+
+#: ./application/modules/guestbook//assets/guestbook.tpl:114
+msgid "Send"
+msgstr "Отправить"
+
+#: ./application/modules/guestbook//guestbook.php:24
+msgid "Field is required"
+msgstr "Обязательное поле"
+
+#: ./application/modules/guestbook//guestbook.php:25
+msgid "Length is less than the minimum"
+msgstr "Длина поля меньше минимальной"
+
+#: ./application/modules/guestbook//guestbook.php:26
+msgid "Email is not valid"
+msgstr "E-mail не правильный"
+
+#: ./application/modules/guestbook//guestbook.php:27
+msgid "Length greater than the maximum"
+msgstr "Длина поля превышает максимальню"
+
+#: ./application/modules/guestbook//guestbook.php:44
+msgid "Improper protection code"
+msgstr "Не верный проверочный код"
+
+#: ./application/modules/guestbook//guestbook.php:87
+msgid "Name"
+msgstr "Имя"
+
+#: ./application/modules/guestbook//guestbook.php:88
+msgid "E-mail"
+msgstr "E-mail"
+
+#: ./application/modules/guestbook//guestbook.php:123
+msgid "New message in Guestbook"
+msgstr "Новое сообщение в гостевой книге"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:13
+#: ./application/modules/guestbook//assets/admin/list.tpl:43
+msgid "Status"
+msgstr "Статус"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:17
+msgid "To waiting"
+msgstr "В ожидающие"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:18
+msgid "To approved"
+msgstr "В одобренные"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:21
+msgid "Delete"
+msgstr "Удалить"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:22
+#: ./application/modules/guestbook//assets/admin/settings.tpl:6
+msgid "Settings"
+msgstr "Настройки"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:37
+msgid "ID"
+msgstr "Id"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:38
+msgid "User name"
+msgstr "Имя пользователя"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:39
+msgid "User e-mail"
+msgstr "E-mail пользователя"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:40
+msgid "Entry text"
+msgstr "Текст сообщения"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:41
+msgid "Date"
+msgstr "Дата"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:42
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:68
+#: ./application/modules/guestbook//assets/guestbook.tpl:91
+msgid "Negative"
+msgstr "Отрицательный"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:70
+#: ./application/modules/guestbook//assets/guestbook.tpl:90
+msgid "Positive"
+msgstr "Положительный"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:75
+msgid "Approval pending"
+msgstr "Ожидает модерации"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:77
+msgid "Approved"
+msgstr "Одобрен"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:83
+msgid "Entries not found"
+msgstr "Записи не найдены"
+
+#: ./application/modules/guestbook//admin.php:76
+msgid "Status updated"
+msgstr "Статус обновлен"
+
+#: ./application/modules/guestbook//admin.php:76
+#: ./application/modules/guestbook//assets/guestbook.tpl:78
+#: ./application/modules/guestbook//guestbook.php:66
+#: ./application/modules/guestbook//guestbook.php:89
+msgid "Message"
+msgstr "Сообщение"
+
+#: ./application/modules/guestbook//admin.php:94
+msgid "The record (s) removed"
+msgstr "Запись(и) удалена"
+
+#: ./application/modules/guestbook//assets/admin/list.tpl:6
+#: ./application/modules/guestbook//assets/guestbook.tpl:6
+#: ./application/modules/guestbook//guestbook.php:51
+#: ./application/modules/guestbook//module_info.php:7
+msgid "Guestbook"
+msgstr "Гостевая книга"
+
