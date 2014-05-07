@@ -96,7 +96,7 @@ class Guestbook extends MY_Controller {
 		$data['guest_allow'] = $this->settings['can_guest'];
 
 		list  ($data['all_items'], $data['all_total']) = $this->base->get_all_gb();
-		$data['all_pages'] = $this->base->pagination($data['all_total'], 2);
+
 
 		$data['pos_items'] = $this->base->get_pos_gb();
 		$data['neg_items'] = $this->base->get_neg_gb();
