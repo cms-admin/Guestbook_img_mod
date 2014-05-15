@@ -20,26 +20,33 @@ class Admin extends BaseAdminController {
 	
 	// список всех записей в админке
 	public function index() {
+		$this->load->model('guestbook_main');
+		$settings = $this->get_settings();
 
-		$this->db->select('mod_guestbook.*');
-		$this->db->order_by('date', 'desc'); 
-		$query = $this->db->get('mod_guestbook');
+		$offset = (int) $this->uri->segment(6);
+		$row_count = (int) $settings['per_page'];
 		
-		if ($query->num_rows() > 0) {
-			$g_comm = $query->result_array();
-			$cnt = count($g_comm);
-			for ($i = 0; $i < $cnt; $i++) {
-				$g_comm[$i]['text'] = htmlspecialchars_decode($g_comm[$i]['text']);
-			}
-			$data['g_comm'] = $g_comm;
-		} else {
-			$data['g_comm'] = FALSE;
+		$query = $this->guestbook_main->getAllEntries($offset, $row_count);
+		
+		if (count($query)) {
+			$this->load->library('Pagination');
+
+			$config['base_url'] = site_url('admin/components/cp/guestbook/index');
+			$config['total_rows'] = $this->guestbook_main->getAllEntries()->num_rows();
+			$config['per_page'] = $row_count;
+			$config['uri_segment'] = $this->uri->total_segments();
+
+			$this->pagination->num_links = 5;
+			$this->pagination->initialize($config);
+			$this->template->assign('paginator', $this->pagination->create_links_ajax());
+			// End pagination
 		}
 
+		$this->template->assign('count', $this->guestbook_main->getAllEntries()->num_rows());
+		
 		\CMSFactory\assetManager::create()
-				->setData($data)
-				->registerScript('admin')
-				->renderAdmin('list');
+			->setData('items',$query)
+			->renderAdmin('list');
 	}
 	
 	// настройки модуля в админке
@@ -58,6 +65,7 @@ class Admin extends BaseAdminController {
 	public function update_settings() {
 		$data = array(
 			'admin_email' => $this->input->post('admin_email'),
+			'per_page' => (int) $this->input->post('per_page'),
 			'can_guest' => (int) $this->input->post('can_guest'),
 			'default_status' => (int) $this->input->post('categories'),
 		);
@@ -96,6 +104,15 @@ class Admin extends BaseAdminController {
 		$this->load->helper('url');
 		$url = '/' . str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
 		pjax($url);
+	}
+	
+	function segment($n) {
+		if (array_key_exists($this->uri->segment(1), $this->langs)) {
+			$n++;
+			return $this->uri->segment($n);
+		}
+
+		return $this->uri->segment($n);
 	}
 
 }

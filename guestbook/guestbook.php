@@ -13,10 +13,9 @@ class Guestbook extends MY_Controller {
 	private $settings = array();
 	public $username_max_len = 30;
 	public $message_max_len = 600;
-	public $admin_mail = 'admin@localhost';
 	public $message = '';
 	protected $formErrors = array();
-	
+
 
 	public function __construct() {
 		parent::__construct();
@@ -30,7 +29,7 @@ class Guestbook extends MY_Controller {
 		$lang->load('guestbook');
 		$this->initSettings();
 	}
-	
+
 	function captcha_check($code) {
 		if (!$this->dx_auth->captcha_check($code))
 			return FALSE;
@@ -46,20 +45,52 @@ class Guestbook extends MY_Controller {
 		return $result;
 	}
 
+	/* ------------------------------------------------------- */
+	/* ------         вывод всех записей на экран       ------ */
+	/* ------------------------------------------------------- */
+
 	public function index() {
-	
-		$this->core->set_meta_tags(lang('Guestbook', 'guestbook'));
-		
+		$this->core->set_meta_tags(lang('All entries in guestbook', 'guestbook'));
+		$this->load->model('guestbook_main');
+		$settings = $this->_load_settings();
+
+		$offset = (int) $this->uri->segment(3);
+		$row_count = (int) $settings['per_page'];
+
+		$query = $this->guestbook_main->getAllowedEntries($offset, $row_count);
+
+		if (count($query)) {
+			$this->load->library('Pagination');
+
+			$config['base_url'] = site_url('guestbook/index');
+			$config['total_rows'] = $this->guestbook_main->getAllowedEntries()->num_rows();
+			$config['per_page'] = $row_count;
+			$config['uri_segment'] = $this->uri->total_segments();
+
+			$this->pagination->num_links = 5;
+			$this->pagination->initialize($config);
+			$this->template->assign('paginator', $this->pagination->create_links_ajax());
+			// End pagination
+		}
+
+		$this->template->assign('count', $this->guestbook_main->getAllowedEntries()->num_rows());
+
+		\CMSFactory\assetManager::create()
+			->setData('items',$query)
+			->registerStyle('frontend')
+			->registerStyle('icons')
+			->render('all');
+	}
+
+	public function message() {
+		$this->core->set_meta_tags(lang('Leave message in the guest book', 'guestbook'));
 		$this->load->library('form_validation');
-		
-		$this->load->model('base');
-		
 		// Create captcha
 		$this->dx_auth->captcha();
 		$tpl_data['cap_image'] = $this->dx_auth->get_captcha_image();
 
 		$this->template->add_array($tpl_data);
-		
+
 		if (count($_POST) > 0) {
 			$this->form_validation->set_rules('name', lang('Your name', 'guestbook'), 'trim|required|min_length[3]|max_length[' . $this->username_max_len . ']|xss_clean');
 			$this->form_validation->set_rules('email', lang('Email', 'guestbook'), 'trim|required|valid_email|xss_clean');
@@ -89,33 +120,25 @@ class Guestbook extends MY_Controller {
 					lang('Message', 'guestbook') . ' : ' . $this->input->post('message')
 				));
 				$this->_send_message();
-				$this->save($guestbook_data);
+				$this->_save($guestbook_data);
 			}
 		}
-		$data['user_id'] = $this->dx_auth->get_user_id();
-		$data['guest_allow'] = $this->settings['can_guest'];
 
-		list  ($data['all_items'], $data['all_total']) = $this->base->get_all_gb();
-
-
-		$data['pos_items'] = $this->base->get_pos_gb();
-		$data['neg_items'] = $this->base->get_neg_gb();
-
+		$this->template->assign('user_id', $this->dx_auth->get_user_id());
+		$this->template->assign('guest_allow', $this->settings['can_guest']);
 
 		CMSFactory\assetManager::create()
-			->setData($data)
-			->registerScript('session')
-			->registerScript('frontend')
 			->registerStyle('frontend')
-			->render('guestbook');
+			->registerStyle('icons')
+			->render('message');
 	}
-	
+
 	//запись сообщения в базу данных
-	private function save($data) {
+	private function _save($data) {
 		$this->db->insert('mod_guestbook', $data);
 		return $this->db->insert_id();
 	}
-	
+
 	// Отправка сообщения админу
 	private function _send_message() {
 		$config['charset'] = 'UTF-8';
@@ -135,26 +158,22 @@ class Guestbook extends MY_Controller {
 		CMSFactory\assetManager::create()->appendData('message_sent', TRUE);
 	}
 
-
-	public function autoload() {
-	
-	}
-	
 	private function initSettings(){
 		$this->db->select('settings');
 		$settings = $this->db->get_where('components', array('name' => 'guestbook'))->row_array();
 		$settings = unserialize(implode(',',$settings));
-		
-		if (count($settings) == 3){
-			
+
+		if (count($settings) == 4){
+
 			$this->settings = $settings;
-			
+
 		} else {
 
 			$settings['admin_email'] = "support@cms-admin.ru";
+			$settings['per_page'] = "10";
 			$settings['can_guest'] = "1";
 			$settings['default_status'] = "0";
-			
+
 			$this->settings = $settings;
 			$settings = serialize($settings);
 
@@ -163,7 +182,7 @@ class Guestbook extends MY_Controller {
 		}
 
 	}
-	
+
 	public function updateSettings($data){
 		$this->db->where('name', 'guestbook');
 		$this->db->update('components', $data);
@@ -175,13 +194,13 @@ class Guestbook extends MY_Controller {
 
 		return unserialize($query['settings']);
 	}
-	
+
 	public function _install() {
-	
+
 		/** Подключаем класс Database Forge содержащий функции,
 		 *  которые помогут вам управлять базой данных.
 		 *  http://ellislab.com/codeigniter/user-guide/database/forge.html */
-		
+
 		$this->load->dbforge();
 
 		/** Создаем массив полей и их атрибутов для БД */
@@ -204,7 +223,7 @@ class Guestbook extends MY_Controller {
 		$this->dbforge->create_table('mod_guestbook', TRUE);
 
 		/** Обновим метаданные модуля, включим автозагрузку модуля и доступ по URL */
-		$this->db->where('name', 'guestbook')->update('components', array('autoload' => '1', 'enabled' => '1'));
+		$this->db->where('name', 'guestbook')->update('components', array('in_menu' => '1', 'enabled' => '1'));
 	}
 
 	/**

@@ -3,7 +3,7 @@
 		<div class="frame_title clearfix">
 			<div class="pull-left">
 				<span class="help-inline"></span>
-				<span class="title">{lang('Guestbook', 'guestbook')}</span>
+				<span class="title">{lang('Guestbook', 'guestbook')} ({$count})</span>
 			</div>
 			<div class="pull-right">
 				<div class="d-i_b">
@@ -44,8 +44,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					{if $g_comm}
-					{foreach $g_comm as $item}
+					{if $count > 0}
+					{foreach $items as $item}
 					<tr data-id="{$item.id}" data-tree>
 						<td class="t-a_c">
 							<span class="frame_label">
@@ -84,6 +84,7 @@
 					{/if}
 				</tbody>
 			</table>
+			{$paginator}
 		</div>
 	</section>
 </div>
