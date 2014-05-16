@@ -2,8 +2,8 @@
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 02:19+0300\n"
-"PO-Revision-Date: 2014-05-15 02:19+0300\n"
+"POT-Creation-Date: 2014-05-16 11:01+0300\n"
+"PO-Revision-Date: 2014-05-16 11:01+0300\n"
 "Last-Translator:  \n"
 "Language-Team:  \n"
 "Language: ru_RU\n"
@@ -18,11 +18,27 @@ msgstr ""
 "X-Poedit-Country: \n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: ./application/modules/guestbook//assets/message.tpl:50
+msgid "You input"
+msgstr "Вы ввели"
+
+#: ./application/modules/guestbook//assets/message.tpl:50
+msgid "simbols from"
+msgstr "символов из"
+
+#: ./application/modules/guestbook//assets/message.tpl:50
+msgid "max available"
+msgstr "возможных"
+
+#: ./application/modules/guestbook//assets/admin/settings.tpl:27
+msgid "Message max length"
+msgstr "Максимальная длина отзыва"
+
 #: ./application/modules/guestbook//assets/message.tpl:7
 msgid "Back to entries"
 msgstr "Назад к отзывам"
 
-#: ./application/modules/guestbook//assets/admin/settings.tpl:27
+#: ./application/modules/guestbook//assets/admin/settings.tpl:33
 msgid "Entries per page"
 msgstr "Записей на странице"
 
@@ -35,7 +51,7 @@ msgstr "Оставить отзыв"
 msgid "All entries in guestbook"
 msgstr "Все записи"
 
-#: ./application/modules/guestbook//guestbook.php:86
+#: ./application/modules/guestbook//guestbook.php:90
 msgid "Leave message in the guest book"
 msgstr "Оставить отзыв"
 
@@ -43,11 +59,11 @@ msgstr "Оставить отзыв"
 msgid "No entries"
 msgstr "Нет отзывов"
 
-#: ./application/modules/guestbook//assets/message.tpl:77
+#: ./application/modules/guestbook//assets/message.tpl:80
 msgid "To leave a message, you must log in or register."
 msgstr "Чтобы оставить сообщение, вам необходимо авторизоваться или зарегистрироваться"
 
-#: ./application/modules/guestbook//admin.php:76
+#: ./application/modules/guestbook//admin.php:77
 msgid "Changes have been saved"
 msgstr "Изменения сохранены"
 
@@ -63,21 +79,21 @@ msgstr "Сохранить"
 msgid "Email for notices"
 msgstr "E-mail для уведомлений"
 
-#: ./application/modules/guestbook//assets/admin/settings.tpl:33
+#: ./application/modules/guestbook//assets/admin/settings.tpl:39
 msgid "Allow guests to write"
 msgstr "Разрешить гостям оставлять записи"
 
-#: ./application/modules/guestbook//assets/admin/settings.tpl:36
-#: ./application/modules/guestbook//assets/admin/settings.tpl:45
+#: ./application/modules/guestbook//assets/admin/settings.tpl:42
+#: ./application/modules/guestbook//assets/admin/settings.tpl:51
 msgid "No"
 msgstr "Нет"
 
-#: ./application/modules/guestbook//assets/admin/settings.tpl:37
-#: ./application/modules/guestbook//assets/admin/settings.tpl:46
+#: ./application/modules/guestbook//assets/admin/settings.tpl:43
+#: ./application/modules/guestbook//assets/admin/settings.tpl:52
 msgid "Yes"
 msgstr "Да"
 
-#: ./application/modules/guestbook//assets/admin/settings.tpl:42
+#: ./application/modules/guestbook//assets/admin/settings.tpl:48
 msgid "To publish immediately"
 msgstr "Публиковать сразу"
 
@@ -87,17 +103,17 @@ msgstr "Ваше сообщение было отправлено"
 
 #: ./application/modules/guestbook//assets/message.tpl:22
 #: ./application/modules/guestbook//assets/message.tpl:26
-#: ./application/modules/guestbook//guestbook.php:95
+#: ./application/modules/guestbook//guestbook.php:100
 msgid "Your name"
 msgstr "Ваше имя"
 
 #: ./application/modules/guestbook//assets/message.tpl:30
 #: ./application/modules/guestbook//assets/message.tpl:34
-#: ./application/modules/guestbook//guestbook.php:96
+#: ./application/modules/guestbook//guestbook.php:101
 msgid "Email"
 msgstr "E-mail"
 
-#: ./application/modules/guestbook//assets/message.tpl:51
+#: ./application/modules/guestbook//assets/message.tpl:54
 msgid "Message text"
 msgstr "Текст сообщения"
 
@@ -105,17 +121,17 @@ msgstr "Текст сообщения"
 msgid "Your feedback"
 msgstr "Ваш отзыв"
 
-#: ./application/modules/guestbook//assets/message.tpl:62
-#: ./application/modules/guestbook//guestbook.php:100
-#: ./application/modules/guestbook//guestbook.php:102
+#: ./application/modules/guestbook//assets/message.tpl:65
+#: ./application/modules/guestbook//guestbook.php:105
+#: ./application/modules/guestbook//guestbook.php:107
 msgid "Protection code"
 msgstr "Проверочный код"
 
-#: ./application/modules/guestbook//assets/message.tpl:63
+#: ./application/modules/guestbook//assets/message.tpl:66
 msgid "Enter protection code"
 msgstr "Введите проверочный код"
 
-#: ./application/modules/guestbook//assets/message.tpl:69
+#: ./application/modules/guestbook//assets/message.tpl:72
 msgid "Send"
 msgstr "Отправить"
 
@@ -139,15 +155,15 @@ msgstr "Длина поля превышает максимальню"
 msgid "Improper protection code"
 msgstr "Не верный проверочный код"
 
-#: ./application/modules/guestbook//guestbook.php:118
+#: ./application/modules/guestbook//guestbook.php:123
 msgid "Name"
 msgstr "Имя"
 
-#: ./application/modules/guestbook//guestbook.php:119
+#: ./application/modules/guestbook//guestbook.php:124
 msgid "E-mail"
 msgstr "E-mail"
 
-#: ./application/modules/guestbook//guestbook.php:153
+#: ./application/modules/guestbook//guestbook.php:160
 msgid "New message in Guestbook"
 msgstr "Новое сообщение в гостевой книге"
 
@@ -219,18 +235,18 @@ msgstr "Одобрен"
 msgid "Entries not found"
 msgstr "Записи не найдены"
 
-#: ./application/modules/guestbook//admin.php:84
+#: ./application/modules/guestbook//admin.php:85
 msgid "Status updated"
 msgstr "Статус обновлен"
 
-#: ./application/modules/guestbook//admin.php:84
+#: ./application/modules/guestbook//admin.php:85
 #: ./application/modules/guestbook//assets/message.tpl:48
-#: ./application/modules/guestbook//guestbook.php:97
-#: ./application/modules/guestbook//guestbook.php:120
+#: ./application/modules/guestbook//guestbook.php:102
+#: ./application/modules/guestbook//guestbook.php:125
 msgid "Message"
 msgstr "Сообщение"
 
-#: ./application/modules/guestbook//admin.php:102
+#: ./application/modules/guestbook//admin.php:103
 msgid "The record (s) removed"
 msgstr "Запись(и) удалена"
 

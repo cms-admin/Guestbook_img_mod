@@ -45,10 +45,13 @@
               </div>
 
               <div class="gb-form__input">
-                <label for="message">{lang('Message', 'guestbook')}</label>
+                <label class="left" for="message">{lang('Message', 'guestbook')}</label>
+                <label class="right">
+                	{lang('You input', 'guestbook')} <span id="txt_now">0</span> {lang('simbols from', 'guestbook')} <span id="txt_max">{$message_max_len}</span> {lang('max available', 'guestbook')}
+                </label>
                 {if $validation}
                 <div class="error" style="color: red">{echo $validation->error('message')}</div>{/if}
-                <textarea cols="45" rows="10" name="message" class="must" placeholder="{lang('Message text', 'guestbook')}">{if $_POST.message}{$_POST.message}{/if}</textarea>
+                <textarea id="message" cols="45" rows="10" name="message" class="must" placeholder="{lang('Message text', 'guestbook')}">{if $_POST.message}{$_POST.message}{/if}</textarea>
               </div>
 
               <div class="clearfix">

@@ -10,7 +10,7 @@
 class Guestbook extends MY_Controller {
 
 	/** Подготовим необходимые свойства для класса */
-	private $settings = array();
+	public $settings = array();
 	public $username_max_len = 30;
 	public $message_max_len = 600;
 	public $message = '';
@@ -27,7 +27,7 @@ class Guestbook extends MY_Controller {
 		);
 		$lang = new MY_Lang();
 		$lang->load('guestbook');
-		$this->initSettings();
+		$this->_initSettings();
 	}
 
 	function captcha_check($code) {
@@ -82,9 +82,14 @@ class Guestbook extends MY_Controller {
 			->render('all');
 	}
 
+	/* ------------------------------------------------------- */
+	/* ------     вывод формы для отправки сообщения    ------ */
+	/* ------------------------------------------------------- */
+
 	public function message() {
 		$this->core->set_meta_tags(lang('Leave message in the guest book', 'guestbook'));
 		$this->load->library('form_validation');
+		$settings = $this->_load_settings();
 		// Create captcha
 		$this->dx_auth->captcha();
 		$tpl_data['cap_image'] = $this->dx_auth->get_captcha_image();
@@ -94,7 +99,7 @@ class Guestbook extends MY_Controller {
 		if (count($_POST) > 0) {
 			$this->form_validation->set_rules('name', lang('Your name', 'guestbook'), 'trim|required|min_length[3]|max_length[' . $this->username_max_len . ']|xss_clean');
 			$this->form_validation->set_rules('email', lang('Email', 'guestbook'), 'trim|required|valid_email|xss_clean');
-			$this->form_validation->set_rules('message', lang('Message', 'guestbook'), 'trim|required|max_length[' . $this->message_max_len . ']|xss_clean');
+			$this->form_validation->set_rules('message', lang('Message', 'guestbook'), 'trim|required|max_length[' . $settings['message_max_len'] . ']|xss_clean');
 
 			if ($this->dx_auth->use_recaptcha)
 				$this->form_validation->set_rules('recaptcha_response_field', lang("Protection code", 'guestbook'), 'trim|xss_clean|required|callback_recaptcha_check');
@@ -125,9 +130,11 @@ class Guestbook extends MY_Controller {
 		}
 
 		$this->template->assign('user_id', $this->dx_auth->get_user_id());
-		$this->template->assign('guest_allow', $this->settings['can_guest']);
+		$this->template->assign('guest_allow', $settings['can_guest']);
+		$this->template->assign('message_max_len', $settings['message_max_len']);
 
 		CMSFactory\assetManager::create()
+			->registerScript('frontend')
 			->registerStyle('frontend')
 			->registerStyle('icons')
 			->render('message');
@@ -158,32 +165,39 @@ class Guestbook extends MY_Controller {
 		CMSFactory\assetManager::create()->appendData('message_sent', TRUE);
 	}
 
-	private function initSettings(){
+	/* ------------------------------------------------------- */
+	/* ------       инициализация настроек модуля       ------ */
+	/* ------------------------------------------------------- */
+
+	function _initSettings(){
 		$this->db->select('settings');
 		$settings = $this->db->get_where('components', array('name' => 'guestbook'))->row_array();
 		$settings = unserialize(implode(',',$settings));
 
-		if (count($settings) == 4){
+		if (count($settings) == 5){
 
 			$this->settings = $settings;
 
 		} else {
-
-			$settings['admin_email'] = "support@cms-admin.ru";
-			$settings['per_page'] = "10";
-			$settings['can_guest'] = "1";
-			$settings['default_status'] = "0";
+			$settings = array(
+				'admin_email' => 'support@cms-admin.ru',
+				'message_max_len' => '600',
+				'per_page' => '10',
+				'can_guest' => '1',
+				'default_status' => '0',
+			);
 
 			$this->settings = $settings;
 			$settings = serialize($settings);
 
 			$init_data = array('settings' => $settings);
-			$this->updateSettings($init_data);
+			$this->_updateSettings($init_data);
 		}
 
 	}
 
-	public function updateSettings($data){
+	// обовляет настройки модуля
+	function _updateSettings($data){
 		$this->db->where('name', 'guestbook');
 		$this->db->update('components', $data);
 	}
@@ -196,40 +210,26 @@ class Guestbook extends MY_Controller {
 	}
 
 	public function _install() {
-
-		/** Подключаем класс Database Forge содержащий функции,
-		 *  которые помогут вам управлять базой данных.
-		 *  http://ellislab.com/codeigniter/user-guide/database/forge.html */
-
 		$this->load->dbforge();
-
-		/** Создаем массив полей и их атрибутов для БД */
 		$fields = array(
-										'id'				=> array('type' => 'INT', 'constraint' => 11, 'auto_increment' => TRUE,),
-										'user_id'		=> array('type' => 'INT', 'constraint' => 11,),
-										'user_name'	=> array('type' => 'VARCHAR', 'constraint' => 50,),
-										'user_mail'	=> array('type' => 'VARCHAR', 'constraint' => 50,),
-										'text'			=> array('type' => 'TEXT',),
-										'date'			=> array('type' => 'INT', 'constraint' => 11,),
-										'status'		=> array('type' => 'SMALLINT', 'constraint' => 1,),
-										'rate'			=> array('type' => 'SMALLINT', 'constraint' => 1,)
+			'id'				=> array('type' => 'INT', 'constraint' => 11, 'auto_increment' => TRUE,),
+			'user_id'		=> array('type' => 'INT', 'constraint' => 11,),
+			'user_name'	=> array('type' => 'VARCHAR', 'constraint' => 50,),
+			'user_mail'	=> array('type' => 'VARCHAR', 'constraint' => 50,),
+			'text'			=> array('type' => 'TEXT',),
+			'date'			=> array('type' => 'INT', 'constraint' => 11,),
+			'status'		=> array('type' => 'SMALLINT', 'constraint' => 1,),
+			'rate'			=> array('type' => 'SMALLINT', 'constraint' => 1,)
 		);
 
-		/** Указываем на поле, которое будет с ключом Primary */
 		$this->dbforge->add_key('id', TRUE);
-		/** Добавим поля в таблицу */
 		$this->dbforge->add_field($fields);
-		/** Запускаем запрос к базе данных на создание таблицы */
 		$this->dbforge->create_table('mod_guestbook', TRUE);
 
-		/** Обновим метаданные модуля, включим автозагрузку модуля и доступ по URL */
 		$this->db->where('name', 'guestbook')->update('components', array('in_menu' => '1', 'enabled' => '1'));
+		$this->_initSettings();
 	}
 
-	/**
-	 * Метод относиться  к стандартным методам ImageCMS.
-	 * Будет вызван при удалении модуля пользователем
-	 */
 	public function _deinstall() {
 		$this->load->dbforge();
 		$this->dbforge->drop_table('mod_guestbook');

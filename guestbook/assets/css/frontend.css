@@ -38,6 +38,7 @@
 	padding: 10px;
 	box-sizing: border-box;
 	border-radius:3px;
+	word-break: break-all;
 }
 .entry[data-rating="0"]{
 	border: 2px solid #E54C3C;
@@ -105,6 +106,13 @@
 	color: #8D7F72;
 	font-weight: bold;
 	margin-bottom: 5px;
+	width: auto !important;
+}
+.gb-form__input label.left{
+	float: left;
+}
+.gb-form__input label.right{
+	float: right;
 }
 .gb-form__input input, .gb-form__input select, .gb-form__input textarea{
 	width: 100%;

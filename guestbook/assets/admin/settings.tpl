@@ -24,6 +24,12 @@
 					</div>
 				</div>
 				<div class="control-group">
+					<label class="control-label" for="admin_email">{lang('Message max length', 'guestbook')}:</label>
+					<div class="controls">
+						<input type = "text" name="message_max_len" class="textbox_short" value="{$settings.message_max_len}"/>
+					</div>
+				</div>
+				<div class="control-group">
 					<label class="control-label" for="per_page">{lang('Entries per page', 'guestbook')}:</label>
 					<div class="controls">
 						<input type = "text" name="per_page" class="textbox_short" value="{$settings.per_page}" id="gs__per-page"/>
