@@ -8,15 +8,12 @@
 				</a>
 			</div>
 			<div class="guestbook__body">
-          {if $guest_allow == 1 || ($guest_allow == 0 && $user_id != 0)}
-          <div id="contact">
-            {if $form_errors}
-              <div class="errors">{$form_errors}</div>
-            {/if}
-            {if $message_sent}
-              <div style="color: green;">{lang('Your message has been sent.', 'guestbook')}</div>
-            {/if}
-            <form action="{site_url('guestbook/message')}" method="post">
+				{if $guest_allow == 1 || ($guest_allow == 0 && $user_id != 0)}
+				<div class="guestbook__info">
+					{if $form_errors}<div class="errors">{$form_errors}</div>{/if}
+					{if $message_sent}<div class="success">{lang('Your message has been sent.', 'guestbook')}</div>{/if}
+				</div>
+				<form id="guestbook" action="{site_url('guestbook/message')}" method="post">
               <div class="clearfix">
                 <div class="gb-form__input third">
                   <label for="name">{lang('Your name', 'guestbook')}</label>
@@ -68,13 +65,12 @@
                 </div>
                 {/if}
                 <div class="gb-form__input third">
-                  <label>&nbsp;</label>
+                  {if $captcha_type =='captcha'}<label>&nbsp;</label>{/if}
                   <input type="submit" id="submit" class="submit" value="{lang('Send', 'guestbook')}" />
                 </div>
               </div>
               {form_csrf()}
             </form>
-          </div>
           {else:}
           <div id="contact">
             <div class="errors">{lang('To leave a message, you must log in or register.', 'guestbook')}</div>

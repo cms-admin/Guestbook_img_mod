@@ -1,3 +1,10 @@
+$(window).load(function(){
+	$(':input','#guestbook')
+		.not(':button, :submit, :reset, :hidden')
+		.val('')
+		.removeAttr('checked')
+		.removeAttr('selected');
+});
 $(function () {
 	var qMax = $('span#txt_max').text();
 	$('#message').keyup(function(){

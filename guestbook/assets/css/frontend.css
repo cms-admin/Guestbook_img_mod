@@ -31,6 +31,24 @@
 	width: 100%;
 	position: relative;
 }
+.guestbook__info{
+	padding: 0 15px;
+}
+.guestbook__info > div{
+	border-radius: 4px;
+	margin-bottom: 20px;
+	padding: 15px;
+}
+.guestbook__info .success{
+	background-color: #DFF0D8;
+	border-color: #D6E9C6;
+	color: #3C763D;
+}
+.guestbook__info .errors{
+	background-color: #F2DEDE;
+	border-color: #EBCCD1;
+	color: #A94442;
+}
 .entry{
 	display: table;
 	width: 100%;

@@ -65,11 +65,12 @@ class Admin extends BaseAdminController {
 	// сохраняет настройки
 	public function update_settings() {
 		$data = array(
-			'admin_email' => $this->input->post('admin_email'),
-			'message_max_len' => $this->input->post('message_max_len'),
-			'per_page' => (int) $this->input->post('per_page'),
-			'can_guest' => (int) $this->input->post('can_guest'),
-			'default_status' => (int) $this->input->post('categories'),
+			'admin_email'			=> $this->input->post('admin_email'),
+			'message_max_len'	=> (int) $this->input->post('message_max_len'),
+			'captcha'					=> (int) $this->input->post('captcha'),
+			'per_page'				=> (int) $this->input->post('per_page'),
+			'can_guest'				=> (int) $this->input->post('can_guest'),
+			'default_status'	=> (int) $this->input->post('categories'),
 		);
 
 		$this->db->where('name', 'guestbook');

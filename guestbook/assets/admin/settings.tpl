@@ -45,6 +45,16 @@
 					</div>
 				</div>
 				<div class="control-group">
+					<label class="control-label" for="captcha">{lang('Captcha code', 'guestbook')}:</label>
+					<div class="controls">
+						<select name="captcha">
+							<option {if $settings.captcha == 0} selected {/if} value="0">{lang('Not show', 'guestbook')}</option>
+							<option {if $settings.captcha == 1} selected {/if} value="1">{lang('Show to guests', 'guestbook')}</option>
+							<option {if $settings.captcha == 2} selected {/if} value="2">{lang('Show to all', 'guestbook')}</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
 					<label class="control-label" for="default_status">{lang('To publish immediately', 'guestbook')}:</label>
 					<div class="controls">
 						<select name="default_status" id="gs__default-status">

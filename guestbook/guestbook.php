@@ -90,21 +90,29 @@ class Guestbook extends MY_Controller {
 		$this->core->set_meta_tags(lang('Leave message in the guest book', 'guestbook'));
 		$this->load->library('form_validation');
 		$settings = $this->_load_settings();
-		// Create captcha
-		$this->dx_auth->captcha();
-		$tpl_data['cap_image'] = $this->dx_auth->get_captcha_image();
+		
+		/* Создает CAPTCHA при необходимости */
+		if ($settings['captcha'] == 2 || ($settings['captcha'] == 1 && $this->dx_auth->get_user_id() == 0)) {
+			$this->dx_auth->captcha();
+			$tpl_data['cap_image'] = $this->dx_auth->get_captcha_image();
+			$this->template->add_array($tpl_data);
+		} else {
+			$this->template->assign('captcha_type', 'none');
+		}
 
-		$this->template->add_array($tpl_data);
+		
 
 		if (count($_POST) > 0) {
 			$this->form_validation->set_rules('name', lang('Your name', 'guestbook'), 'trim|required|min_length[3]|max_length[' . $this->username_max_len . ']|xss_clean');
 			$this->form_validation->set_rules('email', lang('Email', 'guestbook'), 'trim|required|valid_email|xss_clean');
 			$this->form_validation->set_rules('message', lang('Message', 'guestbook'), 'trim|required|max_length[' . $settings['message_max_len'] . ']|xss_clean');
-
-			if ($this->dx_auth->use_recaptcha)
-				$this->form_validation->set_rules('recaptcha_response_field', lang("Protection code", 'guestbook'), 'trim|xss_clean|required|callback_recaptcha_check');
-			else
-				$this->form_validation->set_rules('captcha', lang("Protection code", 'guestbook'), 'trim|required|xss_clean|callback_captcha_check');
+			
+			if ($settings['captcha'] == 2 || ($settings['captcha'] == 1 && $this->dx_auth->get_user_id() == 0)) {
+				if ($this->dx_auth->use_recaptcha)
+					$this->form_validation->set_rules('recaptcha_response_field', lang("Protection code", 'guestbook'), 'trim|xss_clean|required|callback_recaptcha_check');
+				else
+					$this->form_validation->set_rules('captcha', lang("Protection code", 'guestbook'), 'trim|required|xss_clean|callback_captcha_check');
+			}
 
 			if ($this->form_validation->run($this) == FALSE) { // there are errors
 				$this->form_validation->set_error_delimiters("", "");
@@ -174,7 +182,7 @@ class Guestbook extends MY_Controller {
 		$settings = $this->db->get_where('components', array('name' => 'guestbook'))->row_array();
 		$settings = unserialize(implode(',',$settings));
 
-		if (count($settings) == 5){
+		if (count($settings) == 6){
 
 			$this->settings = $settings;
 
@@ -182,6 +190,7 @@ class Guestbook extends MY_Controller {
 			$settings = array(
 				'admin_email' => 'support@cms-admin.ru',
 				'message_max_len' => '600',
+				'captcha' => '1',
 				'per_page' => '10',
 				'can_guest' => '1',
 				'default_status' => '0',
